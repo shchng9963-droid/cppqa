@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.env
+.DS_Store
+.ipynb_checkpoints/
+# generated results (keep the dirs, drop the artifacts)
+results/**/*.csv
+results/**/*.tex
+!results/.gitkeep
+!results/tier1/.gitkeep
