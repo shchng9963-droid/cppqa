@@ -45,35 +45,6 @@ Tested with Python 3.12, `dimod` 0.12, `dwave-neal` 0.6, `pymoo` 0.6.1, `network
 python run_tier1_main.py --quick      # 2 seeds x 2 instances x 6 methods (smoke run)
 ```
 
-## Full reproduction
-Each script writes a CSV under `results/tier1/`; the paper's tables are formatted
-from those CSVs. Run from the repository root.
-
-| Script | Paper item | Output |
-|---|---|---|
-| `run_tier1_main.py` | RQ1 coverage, RQ2 HV, RQ3 IGD, RQ7 runtime | `method_summary_tier1.csv`, `raw_runs_tier1.csv` |
-| `analysis_significance.py` | RQ4 significance (Mann-Whitney U, Â₁₂) | stdout (reads `raw_runs_tier1.csv`) |
-| `run_rq5_ablation_tier1.py` | RQ5 pillar ablation | `rq5_ablation_summary_tier1.csv` |
-| `run_curator_capacity_tier1.py` | RQ6 curation effect | `curator_capacity_summary_tier1.csv` |
-| `run_budget_sweep.py` | RQ8 sampler-budget sweep (FSP-50) | `*budget*csv` |
-| `run_nrp_sweep_v2.py` → `regen_tab_nrp_sat_v2.py` | RQ9 NRP saturation | `nrp_round_sweep_v2.csv` |
-| `run_fpe_stress_tier1.py` | RQ10 F1 stress test (dense NRP) | `fpe_stress_tier1.csv` |
-| `run_atps_practical_tier1.py` | ATPS vs random-weight practical comparison | `atps_practical_summary_tier1.csv` |
-
-Default is 10 seeds over all 10 instances:
-```bash
-python run_tier1_main.py
-python analysis_significance.py
-python run_rq5_ablation_tier1.py
-python run_curator_capacity_tier1.py
-python run_budget_sweep.py
-python run_nrp_sweep_v2.py && python regen_tab_nrp_sat_v2.py
-python run_fpe_stress_tier1.py
-python run_atps_practical_tier1.py
-```
-The full table reproduces in a few hours on a single multi-core workstation
-(SMS-EMOA and MOEA/D dominate the wall-clock; CP-PQA/MOQA finish in seconds).
-
 ### Regenerating the benchmarks
 The 10 instances in `benchmarks/` are the exact ones used in the paper. To
 regenerate them from scratch with the feasibility-aware generator:
